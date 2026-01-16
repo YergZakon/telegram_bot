@@ -1,4 +1,5 @@
 ﻿import logging
+from datetime import datetime, timezone
 
 from aiogram import Router, F
 from aiogram.types import Message
@@ -24,8 +25,10 @@ async def handle_plan(message: Message, plan_generator: PlanGenerator) -> None:
 
     await message.bot.send_chat_action(message.chat.id, 'typing')
 
+    today_utc = datetime.now(timezone.utc).date().isoformat()
+
     try:
-        result = await plan_generator.generate(message.text)
+        result = await plan_generator.generate(message.text, today_utc)
     except Exception as exc:
         logger.exception('Plan generation failed: %s', exc)
         await message.answer('⚠️ Сервис временно недоступен. Попробуйте позже.')

@@ -9,5 +9,6 @@ class PlanGenerator:
     system_prompt: str
     response_max_chars: int
 
-    async def generate(self, user_input: str) -> str:
-        return await self.claude_service.generate_plan(user_input, self.system_prompt)
+    async def generate(self, user_input: str, current_date: str) -> str:
+        system_prompt = self.system_prompt.format(current_date=current_date)
+        return await self.claude_service.generate_plan(user_input, system_prompt)
