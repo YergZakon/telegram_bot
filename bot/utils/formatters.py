@@ -12,14 +12,12 @@ def split_text(text: str, max_len: int) -> List[str]:
     while start < length:
         end = min(start + max_len, length)
         if end < length:
-            newline = text.rfind("
-", start, end)
+            newline = text.rfind("\n", start, end)
             if newline != -1 and newline > start:
                 end = newline
         chunks.append(text[start:end].rstrip())
         start = end
-        if start < length and text[start] == "
-":
+        if start < length and text[start] == "\n":
             start += 1
 
     return chunks
