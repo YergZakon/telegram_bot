@@ -1,9 +1,4 @@
-﻿import html
 from typing import Iterable, List
-
-
-def escape_html(text: str) -> str:
-    return html.escape(text, quote=False)
 
 
 def split_text(text: str, max_len: int) -> List[str]:
@@ -16,16 +11,20 @@ def split_text(text: str, max_len: int) -> List[str]:
 
     while start < length:
         end = min(start + max_len, length)
-        chunks.append(text[start:end])
+        if end < length:
+            newline = text.rfind('
+', start, end)
+            if newline != -1 and newline > start:
+                end = newline
+        chunks.append(text[start:end].rstrip())
         start = end
+        if start < length and text[start] == '
+':
+            start += 1
 
     return chunks
 
 
 def format_for_telegram(text: str, max_len: int) -> Iterable[str]:
-    escaped = escape_html(text)
-    reserved = len('<pre></pre>')
-    chunk_size = max(1, max_len - reserved)
-
-    for chunk in split_text(escaped, chunk_size):
-        yield f'<pre>{chunk}</pre>'
+    for chunk in split_text(text, max_len):
+        yield chunk

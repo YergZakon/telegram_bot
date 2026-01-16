@@ -35,4 +35,4 @@ async def handle_plan(message: Message, plan_generator: PlanGenerator) -> None:
         return
 
     for chunk in format_for_telegram(result, plan_generator.response_max_chars):
-        await message.answer(chunk, parse_mode='HTML', disable_web_page_preview=True)
+        await message.answer(chunk, disable_web_page_preview=True)
