@@ -55,7 +55,6 @@ Phase 2 - Iteration (weeks 5-8):
 - Respond in user's language (Russian/Kazakh/English)
 - Be specific, not generic. Challenge weak ideas.
 - Never schedule in the past
-- If info missing, ask 2-3 clarifying questions first
 - For gov/legal projects: emphasize compliance and stakeholders
 """
 
