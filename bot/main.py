@@ -2,7 +2,6 @@
 import logging
 
 from aiogram import Bot, Dispatcher
-from aiogram.client.default import DefaultBotProperties
 
 from bot.config import load_config
 from bot.handlers import feedback, plan, start
@@ -19,10 +18,7 @@ async def main() -> None:
         format='%(asctime)s %(levelname)s %(name)s: %(message)s',
     )
 
-    bot = Bot(
-        token=config.telegram_bot_token,
-        default=DefaultBotProperties(parse_mode='HTML'),
-    )
+    bot = Bot(token=config.telegram_bot_token)
     dp = Dispatcher()
 
     claude_service = ClaudeService(
